@@ -1,0 +1,21 @@
+import React from 'react';
+import { IconButton } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+import { useTheme } from '../context/ThemeContext';
+
+const ThemeToggle: React.FC = () => {
+  const { isDarkMode, toggleTheme } = useTheme();
+
+  document.documentElement.style.setProperty('--theme-color', isDarkMode ? '#000' : '#fff');
+
+  return (
+    <IconButton onClick={toggleTheme} color="inherit" sx={{ position: 'fixed', right: 20,top: 20}} aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"} tabIndex={0}
+    >
+      {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+    </IconButton>
+  );
+};
+
+export default ThemeToggle;
