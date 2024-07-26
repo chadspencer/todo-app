@@ -1,6 +1,3 @@
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
 import { ThemeProvider } from './context/ThemeContext';
 import { TodoProvider } from './context/TodoContext';
 import TodoList from './components/TodoList';
@@ -13,7 +10,6 @@ function App() {
   return (
     <ThemeProvider>
       <TodoProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
           <main>
             <h1>Todo App</h1>
             <article>
@@ -25,7 +21,6 @@ function App() {
             </article>
           </main>
           <ThemeToggle />
-        </LocalizationProvider>
       </TodoProvider>
     </ThemeProvider>
   );
