@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export type FilterType = 'all' | 'completed' | 'active';
 
 export type ThemeContextType = {
@@ -9,13 +11,13 @@ export interface Todo {
   id: number;
   text: string;
   completed: boolean;
-  dueDate: Date | null;
+  dueDate: Dayjs | null;
 }
 
 export interface TodoContextType {
   todos: Todo[];
   filter: FilterType;
-  addTodo: (text: string, dueDate: Date | null) => void;
+  addTodo: (text: string, dueDate: Dayjs | null) => void;
   deleteTodo: (id: number) => void;
   toggleTodo: (id: number) => void;
   setFilter: (filter: FilterType) => void;

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Dayjs } from 'dayjs';
 
 import { TodoContextType, FilterType, Todo } from '../types/Todo';
 
@@ -15,7 +16,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (text: string, dueDate: Date | null) => {
+  const addTodo = (text: string, dueDate: Dayjs | null) => {
     setTodos(prevTodos => [...prevTodos, { id: Date.now(), text, completed: false, dueDate }]);
   };
 

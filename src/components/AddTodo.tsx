@@ -1,30 +1,36 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Dayjs } from 'dayjs';
 
 import { useTodoContext } from '../context/TodoContext';
 
 const AddTodo: React.FC = () => {
   const [text, setText] = useState('');
-  const [dueDate, setDueDate] = useState<string>('');
+  const [dueDate, setDueDate] = useState<Dayjs | null>(null);
   const { addTodo } = useTodoContext();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      addTodo(text, dueDate ? new Date(dueDate) : null);
+      addTodo(text, dueDate);
       setText('');
-      setDueDate('');
+      setDueDate(null);
     }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <TextField fullWidth value={text} onChange={(e) => setText(e.target.value)} placeholder="Add a new todo" sx={{ mb: 1 }} size="small" />
-      <Box sx={{ display: 'flex', mb: 1 }}>
-        <TextField type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} size="small" />
-        <Button type="submit" sx={{ml: 1}} variant="contained">Add</Button>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Box component="form" onSubmit={handleSubmit}>
+        <TextField fullWidth value={text} onChange={(e) => setText(e.target.value)} label="Task Description" sx={{ mb: 1 }} />
+        <DatePicker sx={{ mb: 1, width: '100%'}} label="Due Date" value={dueDate} onChange={(newValue) => setDueDate(newValue)} slotProps={{
+            field: { clearable: true, onClear: () => setDueDate(null) },
+          }} />
+        <Button size="large" type="submit" variant="contained">Add</Button>
       </Box>
-    </Box>
+    </LocalizationProvider>
   );
 };
 

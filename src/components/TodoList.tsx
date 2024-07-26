@@ -13,7 +13,7 @@ const TodoList: React.FC = () => {
       return true;
     }).sort((a, b) => {
       if (a.dueDate && b.dueDate) {
-        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+        return a.dueDate.diff(b.dueDate);
       } else if (a.dueDate) {
         return -1;
       } else if (b.dueDate) {
